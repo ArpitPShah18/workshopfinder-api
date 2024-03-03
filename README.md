@@ -1,4 +1,4 @@
-# Workshops API
+# Workshop Finder API
 
 It provides acccess to the wide range of workshops based on users interest and multiple other parameters.Our API is designed to offer information on various workshops, including art, technology, and more.
 
