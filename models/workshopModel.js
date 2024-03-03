@@ -47,6 +47,7 @@ workshopSchema.index({ location: 1 });
 workshopSchema.index({ date: 1 });
 // For arrays, a multikey index is useful for queries that match array elements
 workshopSchema.index({ tags: 1 });
+workshopSchema.index({ category: 1 });
 
 const Workshop = mongoose.model('Workshop', workshopSchema);
 

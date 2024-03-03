@@ -20,11 +20,12 @@ export const getWorkshops = async (filters = {}) => {
       }
     }
 
-    // Filter by tags, assuming tags are an array of strings
-    if (Array.isArray(filters.tags) && filters.tags.length > 0) {
+    // Filter by keywords
+    if (Array.isArray(filters.keywords) && filters.keywords.length > 0) {
+      const keywordsArray = filters.keywords.map(keyword => new RegExp("\\b" + keyword.trim() + "\\b", 'i')); // Assuming keywords is a string
       queryConditions.$or = [
-        { tags: { $in: filters.tags } },
-        { category: { $in: filters.tags } } // Assuming you want to use the same array for categories; adjust if needed
+        { tags: { $in: keywordsArray } },
+        { category: { $in: keywordsArray } }
       ];
     }
 
