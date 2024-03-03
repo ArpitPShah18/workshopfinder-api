@@ -47,7 +47,6 @@ The response will be in JSON format. Here is an example of a successful response
   "description": "Dive into the basics of watercolor painting with expert guidance.",
   "location": "Central Park, New York",
   "date": "2024-04-15",
-  "skillLevel": "Beginner",
   "price": 50,
   "participantLimit": 15,
   "registrationCount": 5,
