@@ -4,15 +4,12 @@ export const getWorkshops = async (filters = {}) => {
   try {
     const queryConditions = {};
 
-    if (filters.category) {
-      queryConditions.category = filters.category;
-    }
+    // Filter by location
     if (filters.location) {
       queryConditions.location = filters.location;
     }
-    if (filters.skillLevel) {
-      queryConditions.skillLevel = filters.skillLevel;
-    }
+
+    // Filter by date range
     if (filters.startDate || filters.endDate) {
       queryConditions.date = {};
       if (filters.startDate) {
@@ -23,12 +20,11 @@ export const getWorkshops = async (filters = {}) => {
       }
     }
 
-    // Adjusting the keywords logic to handle array input
-    if (Array.isArray(filters.keywords) && filters.keywords.length > 0) {
-      const keywordsRegex = filters.keywords.map(keyword => new RegExp(keyword.trim(), 'i'));
+    // Filter by tags, assuming tags are an array of strings
+    if (Array.isArray(filters.tags) && filters.tags.length > 0) {
       queryConditions.$or = [
-        { tags: { $in: keywordsRegex } },
-        { category: { $in: keywordsRegex } }
+        { tags: { $in: filters.tags } },
+        { category: { $in: filters.tags } } // Assuming you want to use the same array for categories; adjust if needed
       ];
     }
 
@@ -39,6 +35,16 @@ export const getWorkshops = async (filters = {}) => {
     return workshops;
   } catch (error) {
     console.error(`Error fetching workshops from MongoDB: ${error.message}`);
+    throw error;
+  }
+};
+
+export const getWorkshopById = async (id) => {
+  try {
+    const workshop = await Workshop.findById(id);
+    return workshop;
+  } catch (error) {
+    console.error(`Error fetching workshop by ID from MongoDB: ${error.message}`);
     throw error;
   }
 };

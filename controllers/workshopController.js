@@ -2,7 +2,7 @@
 
 export const getAllWorkshops = async (req, res) => {
   try {
-    const { category, skillLevel, location, keywords, startDate, endDate } = req.query;
+    const { location, keywords, startDate, endDate } = req.query;
     if (location && /^\d+$/.test(location)) {
       return res.status(400).json({ message: "Invalid location provided. Location must be textual." });
     }
@@ -20,12 +20,26 @@ export const getAllWorkshops = async (req, res) => {
 
     const keywordsArray = keywords ? keywords.split(',').map(keyword => keyword.trim()) : [];
 
-    const workshops = await workshopService.getWorkshops({ category, skillLevel, location, keywords: keywordsArray, startDate, endDate });
+    const workshops = await workshopService.getWorkshops({ location, keywords: keywordsArray, startDate, endDate });
     
     if(workshops.length === 0){
       return res.status(404).json({ message: "Workshop Not Found" });
     }
     res.json(workshops);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+export const getWorkshopById = async (req, res) => {
+  try {
+    const workshop = await workshopService.getWorkshopById(req.params.id);
+    
+    if (!workshop) {
+      return res.status(404).json({ message: "Workshop not found" });
+    }
+
+    res.json(workshop);
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }

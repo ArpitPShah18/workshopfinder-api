@@ -1,9 +1,10 @@
 import express from 'express';
-import { getAllWorkshops } from '../controllers/workshopController.js';
+import { getAllWorkshops, getWorkshopById } from '../controllers/workshopController.js';
 
 const router = express.Router();
 
 router.get('/', getAllWorkshops);
-//router.get('/:id', getWorkshop);
+router.get('/:id', getWorkshopById);
+
 
 export default router;

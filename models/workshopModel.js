@@ -21,11 +21,6 @@ const workshopSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  skillLevel: {
-    type: String,
-    required: true,
-    enum: ['Beginner', 'Intermediate', 'Advanced', 'All Levels'] // Adjust based on your specific skill levels
-  },
   price: {
     type: Number,
     required: true
@@ -46,6 +41,12 @@ const workshopSchema = new mongoose.Schema({
 }, {
   timestamps: true // Adds createdAt and updatedAt timestamps
 });
+
+// Adding indexes
+workshopSchema.index({ location: 1 });
+workshopSchema.index({ date: 1 });
+// For arrays, a multikey index is useful for queries that match array elements
+workshopSchema.index({ tags: 1 });
 
 const Workshop = mongoose.model('Workshop', workshopSchema);
 
