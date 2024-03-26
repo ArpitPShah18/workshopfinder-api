@@ -42,12 +42,12 @@ const workshopSchema = new mongoose.Schema({
   timestamps: true // Adds createdAt and updatedAt timestamps
 });
 
-// Adding indexes
+// Existing indexes on 'location' and 'date' can remain as they optimize other types of queries
 workshopSchema.index({ location: 1 });
 workshopSchema.index({ date: 1 });
-// For arrays, a multikey index is useful for queries that match array elements
-workshopSchema.index({ tags: 1 });
-workshopSchema.index({ category: 1 });
+
+// Replace individual indexes on 'tags' and 'category' with a compound text index
+workshopSchema.index({ tags: 'text', category: 'text' }); // Compound text index
 
 const Workshop = mongoose.model('Workshop', workshopSchema);
 

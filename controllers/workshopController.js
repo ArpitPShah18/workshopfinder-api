@@ -18,9 +18,9 @@ export const getAllWorkshops = async (req, res) => {
       return res.status(400).json({ message: "startDate cannot be after endDate." });
     }
 
-    const keywordsArray = keywords ? keywords.split(',').map(keyword => keyword.trim()) : [];
+    //const keywordsArray = keywords ? keywords.split(',').map(keyword => keyword.trim()) : [];
 
-    const workshops = await workshopService.getWorkshops({ location, keywords: keywordsArray, startDate, endDate });
+    const workshops = await workshopService.getWorkshops({ location, keywords, startDate, endDate });
     
     if(workshops.length === 0){
       return res.status(404).json({ message: "Workshop Not Found" });
