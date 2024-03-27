@@ -26,8 +26,7 @@ export const getWorkshops = async (filters = {}) => {
       const keywordsForSearch = filters.keywords.replace(/,/g, ' ');
       queryConditions.$text = { $search: keywordsForSearch };
     }
-
-    const workshops = await Workshop.find(queryConditions).exec();
+    const workshops = await Workshop.find(queryConditions).lean().exec();
     //console.log(`Found ${workshops.length} workshops matching filters`);
     return workshops;
 
