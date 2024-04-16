@@ -16,7 +16,7 @@ To start using the Workshops API, ensure you have the following prerequisites:
 
 ### Base URL
 
-The API is accessible at `https://jz43dl2q96.execute-api.us-east-1.amazonaws.com/newstage/workshops`.
+The API is accessible at `https://dvrl380ud0.execute-api.us-east-1.amazonaws.com/stage/workshops`.
 
 ### Authentication
 
