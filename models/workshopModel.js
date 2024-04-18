@@ -37,17 +37,15 @@ const workshopSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  tags: [String] // Array of strings
+  tags: [String]
 }, {
-  timestamps: true // Adds createdAt and updatedAt timestamps
+  timestamps: true
 });
 
-// Existing indexes on 'location' and 'date' can remain as they optimize other types of queries
 workshopSchema.index({ location: 1 });
 workshopSchema.index({ date: 1 });
 
-// Replace individual indexes on 'tags' and 'category' with a compound text index
-workshopSchema.index({ tags: 'text', category: 'text' }); // Compound text index
+workshopSchema.index({ tags: 'text', category: 'text' });
 
 const Workshop = mongoose.model('Workshop', workshopSchema);
 

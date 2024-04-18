@@ -16,7 +16,6 @@ const logToCloudWatch = async (message, data) => {
   ];
 
   try {
-    // Retrieve the sequence token required for the next putLogEvents call
     const { uploadSequenceToken } = await getStreamSequenceToken(logGroupName, logStreamName);
 
     const params = {

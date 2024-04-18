@@ -22,7 +22,6 @@ export const getWorkshops = async (filters = {}) => {
 
     // Filter by keywords
     if (filters.keywords) {
-      // Directly using the comma-separated string for text search
       const keywordsForSearch = filters.keywords.replace(/,/g, ' ');
       queryConditions.$text = { $search: keywordsForSearch };
     }
@@ -30,8 +29,7 @@ export const getWorkshops = async (filters = {}) => {
 
     return workshops;
 
-    
-    //return workshops;
+
   } catch (error) {
     logToCloudWatch('Error fetching workshops from MongoDB:', error.message);
     console.error(`Error fetching workshops from MongoDB: ${error.message}`);
