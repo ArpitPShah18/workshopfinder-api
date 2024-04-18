@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import workshopRoutes from './routes/workshop.js';
 import connectDB from './config/db.js';
 import cors from 'cors';
+import logToCloudWatch from './utils/cloudwatchLogger.js';
 
 dotenv.config();
 await connectDB()
@@ -17,6 +18,7 @@ app.use('/workshops', workshopRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
+  logToCloudWatch('Server Start', { status: 'success', port })
 });
 
 export default app;

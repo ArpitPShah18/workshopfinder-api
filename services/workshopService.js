@@ -1,5 +1,5 @@
 import Workshop from '../models/workshopModel.js';
-
+import logToCloudWatch from '../utils/cloudwatchLogger.js';
 export const getWorkshops = async (filters = {}) => {
   try {
     const queryConditions = {};
@@ -33,6 +33,7 @@ export const getWorkshops = async (filters = {}) => {
     
     //return workshops;
   } catch (error) {
+    logToCloudWatch('Error fetching workshops from MongoDB:', error.message);
     console.error(`Error fetching workshops from MongoDB: ${error.message}`);
     throw error;
   }
@@ -43,6 +44,7 @@ export const getWorkshopById = async (id) => {
     const workshop = await Workshop.findById(id);
     return workshop;
   } catch (error) {
+    logToCloudWatch('Error fetching workshop by ID from MongoDB:', error.message);
     console.error(`Error fetching workshop by ID from MongoDB: ${error.message}`);
     throw error;
   }
